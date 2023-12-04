@@ -1,7 +1,7 @@
 package Banggabanggacom.example.Banggabangga.service;
 
 import Banggabanggacom.example.Banggabangga.domain.User;
-import Banggabanggacom.example.Banggabangga.dto.UserSignupDto;
+import Banggabanggacom.example.Banggabangga.dto.UserSignupRequest;
 import Banggabanggacom.example.Banggabangga.exception.ErrorCode;
 import Banggabanggacom.example.Banggabangga.exception.User.SignupException;
 import Banggabanggacom.example.Banggabangga.repsitory.UserRepository;
@@ -18,7 +18,7 @@ public class SignupService {
     private final UserRepository userRepository;
 
 
-    public User signup(UserSignupDto request) {
+    public User signup(UserSignupRequest request) {
         checkDuplicateNickName(request.getNickname());
         User user = creatUser(request);
         return userRepository.save(user);
@@ -31,7 +31,7 @@ public class SignupService {
         }
     }
 
-    private User creatUser(UserSignupDto request) {
+    private User creatUser(UserSignupRequest request) {
         User user = User.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
