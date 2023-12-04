@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class PostDetailResponse {
@@ -15,7 +16,7 @@ public class PostDetailResponse {
     private String nickname;
     private String title;
     private String content;
-    private List<Comment> comments;
+    private List<CommentResponse> comments;
     private int likeCount;
     private LocalDateTime createdAt;
     private boolean isLiked;
@@ -25,7 +26,7 @@ public class PostDetailResponse {
 
     @Builder
     private PostDetailResponse(Long id, String nickname, String title, String content,
-                               LocalDateTime createdAt, int likeCount, List<Comment> comments, boolean isLiked) {
+                               LocalDateTime createdAt, int likeCount, List<CommentResponse> comments, boolean isLiked) {
         this.id = id;
         this.nickname = nickname;
         this.title = title;
@@ -45,7 +46,9 @@ public class PostDetailResponse {
                 .content(post.getContent())
                 .createdAt(post.getCreatedAt())
                 .likeCount(post.getLikeCount())
-                .comments(post.getComments())
+                .comments(post.getComments().stream()
+                        .map(CommentResponse::of)
+                        .collect(Collectors.toList()))
                 .isLiked(isLiked)
                 .build();
     }

@@ -74,7 +74,6 @@ public class PostController {
         return ResponseEntity.noContent().build();
     }
 
-
     public User getUser(Authentication authentication) {
         return getPrincipalUser(authentication);
     }

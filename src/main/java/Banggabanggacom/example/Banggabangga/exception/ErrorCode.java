@@ -10,7 +10,7 @@ public enum ErrorCode {
 
     HAS_NOT_AUTHORIZATION(4422, "권한이 없습니다."),
     POST_NOT_EXIST(4423,"해당 게시글을 찾을 수 없습니다."),
-
+    COMMENT_NOT_EXIST(4424,"해당 댓글을 찾을 수 없습니다."),
     USER_NOT_EXIST(4433, "해당 유저를 찾을 수 없습니다.");
 
     private final int code;
