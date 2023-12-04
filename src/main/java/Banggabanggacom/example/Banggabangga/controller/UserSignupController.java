@@ -1,6 +1,6 @@
 package Banggabanggacom.example.Banggabangga.controller;
 
-import Banggabanggacom.example.Banggabangga.dto.UserSignupDto;
+import Banggabanggacom.example.Banggabangga.dto.UserSignupRequest;
 import Banggabanggacom.example.Banggabangga.service.SignupService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class UserSignupController {
     */
 
     @PostMapping
-    public Object register(@RequestBody @Valid UserSignupDto request) throws IOException {
+    public Object register(@RequestBody @Valid UserSignupRequest request) throws IOException {
         try {
             request.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
             signupService.signup(request);
