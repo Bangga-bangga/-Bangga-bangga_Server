@@ -67,4 +67,8 @@ public class User {
         }
     }
 
+    public boolean hasId(Long id) {
+        return this.id.equals(id);
+    }
+
 }
