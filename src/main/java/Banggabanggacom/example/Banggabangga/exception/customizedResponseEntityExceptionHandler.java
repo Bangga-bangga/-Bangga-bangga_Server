@@ -60,6 +60,26 @@ public class customizedResponseEntityExceptionHandler extends ResponseEntityExce
 
     }
 
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<Object> handleCommentNotFoundException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+                .code(ErrorCode.COMMENT_NOT_EXIST.getCode())
+                .message(ErrorCode.COMMENT_NOT_EXIST.getMessage())
+                .details(request.getDescription(false))
+                .build();
+        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<Object> handlePostNotFoundException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+                .code(ErrorCode.POST_NOT_EXIST.getCode())
+                .message(ErrorCode.POST_NOT_EXIST.getMessage())
+                .details(request.getDescription(false))
+                .build();
+        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
 //    @ExceptionHandler(UserNotFoundException.class)
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)
 //    protected ExceptionResponse handleMethodArgumentNotValid(MethodArgumentNotValidException ex, WebRequest request) {
