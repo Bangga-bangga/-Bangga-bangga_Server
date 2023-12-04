@@ -33,6 +33,10 @@ public class Post {
 
     private String writerNickname;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    private Category category;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Like> likes = new ArrayList<>();
 
@@ -50,13 +54,14 @@ public class Post {
 
     @Builder
     private Post(String title, String content, User user, String writerNickname, List<Like> likes,
-                 List<Comment> comments) {
+                 List<Comment> comments, Category category) {
         this.title = title;
         this.content = content;
         this.user = user;
         this.likes = likes;
         this.writerNickname = writerNickname;
         this.comments = comments;
+        this.category = category;
     }
 
     public boolean isModified() {
