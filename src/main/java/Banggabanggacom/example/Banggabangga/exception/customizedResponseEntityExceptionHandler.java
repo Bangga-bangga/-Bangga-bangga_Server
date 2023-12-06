@@ -1,6 +1,8 @@
 package Banggabanggacom.example.Banggabangga.exception;
 
+import Banggabanggacom.example.Banggabangga.exception.User.AuthorizationException;
 import Banggabanggacom.example.Banggabangga.exception.User.CustomMethodArgumentNotValidException;
+import Banggabanggacom.example.Banggabangga.exception.User.SignupException;
 import Banggabanggacom.example.Banggabangga.exception.User.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -46,6 +48,47 @@ public class customizedResponseEntityExceptionHandler extends ResponseEntityExce
                 .build();
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
 
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<Object> handleAuthorizationException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+                .code(ErrorCode.HAS_NOT_AUTHORIZATION.getCode())
+                .message(ErrorCode.HAS_NOT_AUTHORIZATION.getMessage())
+                .details(request.getDescription(false))
+                .build();
+        return new ResponseEntity(exceptionResponse, HttpStatus.FORBIDDEN);
+
+    }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<Object> handleCommentNotFoundException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+                .code(ErrorCode.COMMENT_NOT_EXIST.getCode())
+                .message(ErrorCode.COMMENT_NOT_EXIST.getMessage())
+                .details(request.getDescription(false))
+                .build();
+        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<Object> handlePostNotFoundException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+                .code(ErrorCode.POST_NOT_EXIST.getCode())
+                .message(ErrorCode.POST_NOT_EXIST.getMessage())
+                .details(request.getDescription(false))
+                .build();
+        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SignupException.class)
+    public ResponseEntity<Object> handleSignupException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+                .code(ErrorCode.DUPLICATED_NICKNAME.getCode())
+                .message(ex.getMessage())
+                .details(request.getDescription(false))
+                .build();
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
 //    @ExceptionHandler(UserNotFoundException.class)

@@ -56,9 +56,9 @@ public class SecurityConfig implements ApplicationContextAware {
                 .addFilter(new JwtAuthorizationFilter(authenticationManagerBean(), userRepository))
                 .authorizeHttpRequests(customizer -> customizer
                         .requestMatchers("/user/**").hasRole("USER")
-                        .requestMatchers("/deal/**").hasRole("USER")
-                        .requestMatchers("/contract/**").hasRole("USER")
-                        .requestMatchers("/deal-details/**").hasRole("USER")
+                        .requestMatchers("/adult/**").hasRole("USER")
+                        .requestMatchers("/mz/**").hasRole("USER")
+                        .requestMatchers("/posts/**").hasRole("USER")
                         .anyRequest().permitAll()
                 );
         return http.build();

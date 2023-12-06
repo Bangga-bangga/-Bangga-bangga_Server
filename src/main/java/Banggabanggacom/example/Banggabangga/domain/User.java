@@ -67,4 +67,15 @@ public class User {
         }
     }
 
+    public boolean hasId(Long id) {
+        return this.id.equals(id);
+    }
+
+    public Category classifyByAge() {
+        if (age > 40) {
+            return Category.ADULT;
+        }
+
+        return Category.MZ;
+    }
 }
