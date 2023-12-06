@@ -3,6 +3,7 @@ package Banggabanggacom.example.Banggabangga.config.jwt;
 
 import Banggabanggacom.example.Banggabangga.config.auth.PrincipalDetails;
 import Banggabanggacom.example.Banggabangga.dto.LoginRequest;
+import Banggabanggacom.example.Banggabangga.dto.LoginResponse;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -91,7 +92,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         PrincipalDetails principalDetailis = (PrincipalDetails) authResult.getPrincipal();
         String jwtToken = createAccessToken(principalDetailis);
 
-        Long loginResponse = principalDetailis.getUser().getId();
+//        Long loginResponse = principalDetailis.getUser().getId();
+        LoginResponse loginResponse = LoginResponse.builder()
+                .id(principalDetailis.getUser().getId())
+                .category(principalDetailis.getUser().classifyByAge()).build();
         System.out.println(principalDetailis.getUser().getId());
         String result = mapper.writeValueAsString(loginResponse);
 
