@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,15 +23,14 @@ public class SignupService {
         return userRepository.save(user);
     }
 
-    public void checkDuplicateNickName(String nickName) {
-        Optional<User> user = Optional.ofNullable(userRepository.findByNickname(nickName));
-        if (!user.isEmpty()) {
-            throw new SignupException(ErrorCode.DUPLICATED_EMAIL);
+    public void checkDuplicateNickName(String nickname) {
+        if (userRepository.existsUserByNickname(nickname)) {
+            throw new SignupException(ErrorCode.DUPLICATED_NICKNAME);
         }
     }
 
     private User creatUser(UserSignupRequest request) {
-        User user = User.builder()
+        return User.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .nickname(request.getNickname())
@@ -40,7 +38,6 @@ public class SignupService {
                 .createAt(LocalDateTime.now())
                 .role("ROLE_USER")
                 .status("A").build();
-        return user;
     }
 }
 

@@ -2,6 +2,7 @@ package Banggabanggacom.example.Banggabangga.exception;
 
 import Banggabanggacom.example.Banggabangga.exception.User.AuthorizationException;
 import Banggabanggacom.example.Banggabangga.exception.User.CustomMethodArgumentNotValidException;
+import Banggabanggacom.example.Banggabangga.exception.User.SignupException;
 import Banggabanggacom.example.Banggabangga.exception.User.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -78,6 +79,16 @@ public class customizedResponseEntityExceptionHandler extends ResponseEntityExce
                 .details(request.getDescription(false))
                 .build();
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SignupException.class)
+    public ResponseEntity<Object> handleSignupException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+                .code(ErrorCode.DUPLICATED_NICKNAME.getCode())
+                .message(ex.getMessage())
+                .details(request.getDescription(false))
+                .build();
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
 //    @ExceptionHandler(UserNotFoundException.class)

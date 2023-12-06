@@ -35,14 +35,9 @@ public class UserSignupController {
     }
 
     @GetMapping(value = "/exists", produces = "application/json; charset=UTF-8")
-    public Object checkEmail(@RequestParam String nickname) throws IOException {
-        try {
-            signupService.checkDuplicateNickName(nickname);
-            return Map.of("result", "중복되지 않은 이메일입니다.");
-        } catch (Exception e) {
-            throw e;
-        }
-
+    public Object checkNickname(@RequestParam String nickname) {
+        signupService.checkDuplicateNickName(nickname);
+        return Map.of("result", "중복되지 않은 닉네임입니다.");
     }
 
 }

@@ -13,7 +13,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User findByEmail(String email) {
-        return userRepository.findByNickname(email);
+        return userRepository.findByEmail(email);
     }
 
     public Optional<User> findById(Long id){
@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public void delete(String email) {
-        User user = userRepository.findByNickname(email);
+        User user = userRepository.findByEmail(email);
         user.updateStatus("F"); // 회원탈퇴 = F
     }
 
