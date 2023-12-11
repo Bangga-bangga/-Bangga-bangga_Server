@@ -6,7 +6,11 @@ import lombok.Data;
 
 @Data
 @Builder
-public class LoginResponse {
-    private Long id;
+public class MyPageResponse {
+    private String email;
     private Category category;
+    private String nickname;
+    private int age;
+    private PostsResponse myPost;
+
 }
