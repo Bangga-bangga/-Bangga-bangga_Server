@@ -53,12 +53,6 @@ public class PostController {
         return ResponseEntity.ok(postsResponse);
     }
 
-    @GetMapping(path = "/posts/me")
-    public ResponseEntity<PostsResponse> findMyPosts(
-            @PageableDefault(sort = "createdAt", direction = DESC) Pageable pageable, Authentication authentication) {
-        PostsResponse myPosts = postService.findMyPosts(pageable, getUser(authentication));
-        return ResponseEntity.ok(myPosts);
-    }
 
     @PutMapping("/posts/{id}")
     public ResponseEntity<Void> updatePost(@PathVariable Long id,
